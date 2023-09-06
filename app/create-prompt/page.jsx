@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -14,17 +14,6 @@ const CreatePrompt = () => {
     prompt: "",
     tag: "",
   });
-
-  const fetchPosts = async () => {
-    const response = await fetch("/api/prompt");
-    const data = await response.json();
-
-    setAllPosts(data);
-  };
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
 
   const createPrompt = async (e) => {
     e.preventDefault();
@@ -45,7 +34,6 @@ const CreatePrompt = () => {
       console.log(error);
     } finally {
       setSubmitting(false);
-      fetchPosts();
     }
   };
 
