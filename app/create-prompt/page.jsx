@@ -15,6 +15,17 @@ const CreatePrompt = () => {
     tag: "",
   });
 
+  const fetchPosts = async () => {
+    const response = await fetch("/api/prompt");
+    const data = await response.json();
+
+    setAllPosts(data);
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   const createPrompt = async (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -34,10 +45,11 @@ const CreatePrompt = () => {
       console.log(error);
     } finally {
       setSubmitting(false);
+      fetchPosts();
     }
   };
 
-  return ( 
+  return (
     <Form
       type="Create"
       post={post}
